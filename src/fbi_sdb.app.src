@@ -1,0 +1,29 @@
+%% -*- erlang -*-
+
+{application, fbi_sdb, [
+    {description, "FBI server DB app"},
+    {vsn, "0.0.1"},
+    {registered, []},
+    {mod, {fbi_sdb_app, []}},
+    {applications, [
+        lager,
+        fbi_common
+    ]},
+    {env, [
+        {common, [
+            {rm_views, [
+                {server_proc, fbi_server_views},
+                {sdb_proc, fbi_sdb_views},
+                {sdb_tab, fbi_sdb_flagmap_views},
+                {sdb_conf_filename, "fbi-views.conf"}
+            ]},
+            {rm_api, [
+                {server_proc, fbi_server_api},
+                {sdb_proc, fbi_sdb_api},
+                {sdb_tab, fbi_sdb_flagmap_api},
+                {sdb_conf_filename, "fbi-api.conf"}
+            ]}
+        ]},
+        {conf_path, "/echo/etc/current"}
+    ]}
+]}.

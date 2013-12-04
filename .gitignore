@@ -1,0 +1,16 @@
+priv
+ocaml_src/*.cmi
+ocaml_src/*.cmx
+ocaml_src/*.o
+ocaml_src/fbi_conf_lexer.ml
+ocaml_src/fbi_conf_parser.ml
+ocaml_src/fbi_conf_parser.mli
+ocaml_src/fbi_conf_parser.output
+ocaml_src/fbi-sdb
+ocaml_src/test-sdb
+ocaml_src/fbi-report
+ebin
+.eunit
+
+*.swp
+*~

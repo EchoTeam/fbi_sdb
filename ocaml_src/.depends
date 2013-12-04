@@ -1,0 +1,18 @@
+event_loop.cmo:
+event_loop.cmx:
+fbi-sdb.cmo: mavg.cmo fbi_packet.cmo event_loop.cmo
+fbi-sdb.cmx: mavg.cmx fbi_packet.cmx event_loop.cmx
+fbi_conf.cmo: fbi_conf_type.cmo fbi_conf_parser.cmi fbi_conf_lexer.cmo
+fbi_conf.cmx: fbi_conf_type.cmx fbi_conf_parser.cmx fbi_conf_lexer.cmx
+fbi_conf_lexer.cmo: fbi_conf_parser.cmi
+fbi_conf_lexer.cmx: fbi_conf_parser.cmx
+fbi_conf_parser.cmo: fbi_conf_type.cmo fbi_conf_parser.cmi
+fbi_conf_parser.cmx: fbi_conf_type.cmx fbi_conf_parser.cmi
+fbi_conf_type.cmo:
+fbi_conf_type.cmx:
+fbi_packet.cmo:
+fbi_packet.cmx:
+mavg.cmo:
+mavg.cmx:
+test-sdb.cmo:
+test-sdb.cmx:
