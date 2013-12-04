@@ -7,23 +7,26 @@
 -define(fbi_sdb_call_timeout, 10000).
 -define(fbi_stats_ttl, 90). % in sec
 
-push_stats(rm_views = Realm) ->
+%%% ===================================
+%%% API
+%%% ===================================
+
+push_stats(Realm) ->
     % FBI stats
     send_stats(collect_fbi_stats(Realm)),
-    % FBI metrics (view)
-    send_stats(collect_fbi_metrics_stats(Realm, "view", "/?/?")),
-    % FBI metrics (view_port)
-    send_stats(collect_fbi_metrics_stats(Realm, "view_port", "/?/?/?"));
+    % FBI metrics 
+    Metrics = get_metrics_for_stats(Realm),
+    push_metrics(Realm, Metrics).
 
-push_stats(rm_api = Realm) ->
-    % FBI stats
-    send_stats(collect_fbi_stats(Realm)),
-    % FBI metrics (ratelimit)
-    send_stats(collect_fbi_metrics_stats(Realm, "ratelimit", "/?/?/?"));
+%%% ===================================
+%%% Internal functions
+%%% ===================================
 
-push_stats(_) ->
-    ok.
-
+push_metrics(Realm, []) -> ok;
+push_metrics(Realm, [{M, P}|Rest]) ->
+    send_stats(collect_fbi_metrics_stats(Realm, M, P)),
+    push_metrics(Realm, Rest).
+    
 send_stats(Stats) ->
     [stats:notify(K, V, gauge, [{ttl, ?fbi_stats_ttl}]) || {K, V} <- Stats],
     ok.
@@ -110,3 +113,7 @@ get_fbi_groupped_stats(Realm, Pattern, Categories) ->
 construct_counter_name(List) ->
     string:join([stats:safe_string(S) || E <- List, S <- [type_utils:to_list(E)], S =/= ""], ".").
 
+get_metrics_for_stats(Realm) ->
+    SpecialConfigs = application:get_env(fbi_sdb, special, []),
+    RealmConfigs = proplists:get_value(Realm, SpecialConfigs, []),
+    proplists:get_value(metrics, RealmConfigs, []).
