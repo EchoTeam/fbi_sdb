@@ -4,11 +4,19 @@ REBAR= `which ./rebar || rebar`
 
 CAMLSRC=ocaml_src
 SDB=priv/fbi_sdb
+OCAML_DEPS:=ocaml-jskitlib
 
 all: compile install
 
-compile:
+compile: ocaml-deps
 	$(REBAR) compile
+
+ocaml-deps:
+	for ocamld in $(OCAML_DEPS); do \
+		if [ -d deps/$${ocamld} ]; then \
+			(cd deps/$${ocamld} && $(MAKE)); \
+		fi; \
+	done
 
 install:
 	cd $(CAMLSRC); $(MAKE) install

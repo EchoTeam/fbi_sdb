@@ -1,4 +1,4 @@
-OCAMLPATH="../../../deps/ocaml_erlang_port:../../../ocaml_deps"
+OCAMLPATH="../deps/ocaml_erlang_port:../deps:../../ocaml_erlang_port:../../"
 REQUIRES = "str,num,ocaml-erlang-port,ocaml-jskitlib,unix"
 OCAMLOPT = OCAMLPATH="$(OCAMLPATH)" ocamlfind ocamlopt -package $(REQUIRES)
 OCAMLC = OCAMLPATH="$(OCAMLPATH)" ocamlfind ocamlc -package $(REQUIRES)

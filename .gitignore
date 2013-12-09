@@ -9,6 +9,7 @@ ocaml_src/fbi_conf_parser.output
 ocaml_src/fbi-sdb
 ocaml_src/test-sdb
 ocaml_src/fbi-report
+deps
 ebin
 .eunit
 
