@@ -38,7 +38,7 @@ children_for_realm(Realm) -> [
 
 reconfigure() ->
     {ok, {_, ChildSpecs}} = init([]),
-    code_update_mod:reconfigure_supervisor(?MODULE, ChildSpecs).
+    superman:reconfigure_supervisor(?MODULE, ChildSpecs).
 
 start_folsom_timer_server(Realm) -> 
     folsom_timer_server:start_link(?FBI_STATS_INTERVAL, fbi_sdb_stats, push_stats, [Realm]).
