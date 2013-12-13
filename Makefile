@@ -34,7 +34,7 @@ clean-ocaml:
 	cd $(CAMLSRC); $(MAKE) clean
 
 test: install
-	$(REBAR) eunit
+	$(REBAR) eunit skip_deps=true
 
 clean:
 	$(REBAR) clean
