@@ -38,10 +38,9 @@ load_config() ->
     Mod = fbi_scfg,
     ModSpec = [
             ["-module(", atom_to_list(Mod), ")."],
-            ["-export([server_node/1, server_proc/1, sdb_proc/1, sdb_tab/1, sdb_lru_size/1, ",
+            ["-export([server_proc/1, sdb_proc/1, sdb_tab/1, sdb_lru_size/1, ",
              "sdb_conf_filename/1, raw_sdb_params/1, server_hostport/1, enumerate/0])."],
             ["enumerate() -> ", IO(Realms), "."],
-            [["server_node(", IO(R), ") -> ", IO(Get(R, server_node)), D] || {R, D} <- W(Realms)],
             [["server_proc(", IO(R), ") -> ", IO(Get(R, server_proc)), D] || {R, D} <- W(Realms)],
             [["sdb_proc(", IO(R), ") -> ", IO(Get(R, sdb_proc)), D] || {R, D} <- W(Realms)],
             [["sdb_tab(", IO(R), ") -> ", IO(Get(R, sdb_tab)), D] || {R, D} <- W(Realms)],
