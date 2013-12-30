@@ -17,7 +17,8 @@ stop(_State) ->
     ok.
 
 load_config() ->
-    {ok, RealmsSpec} = application:get_env(fbi_sdb, realms),
+    {ok, InitialRealmsSpec} = application:get_env(fbi_sdb, realms),
+    RealmsSpec = extend_realms_spec(InitialRealmsSpec),
 
     Realms = [R || {R, _} <- RealmsSpec],
     
@@ -56,3 +57,24 @@ load_config() ->
     ],
     mod_gen:go(ModSpec).
 
+extend_realms_spec(RealmsSpec) ->
+    %% These options will be added to a realm spec (for each realms in the spec)
+    %% These options will look in the spec as {option_name, prefix_<realm_short_name>}
+    OptionsForExtend = [
+        {server_proc, fbi_server_},
+        {sdb_proc, fbi_sdb_},
+        {sdb_tab, fbi_sdb_flagmap_}
+    ],
+    lists:map(fun(R) -> extend_realm_spec(R, OptionsForExtend) end, RealmsSpec).
+
+extend_realm_spec({R, Spec}, OptionsForExtend) ->
+    ShortName = proplists:get_value(realm_short_name, Spec),
+    ConcatAtoms = fun(A1, A2) ->
+        list_to_atom(atom_to_list(A1) ++ atom_to_list(A2))
+    end,
+    GetOption = fun({OptionName, Prefix}) ->
+                    {OptionName, ConcatAtoms(Prefix, ShortName)}
+    end,
+    AdditionalOptions = lists:map(GetOption, OptionsForExtend),
+    {R, Spec ++ AdditionalOptions}.
+    

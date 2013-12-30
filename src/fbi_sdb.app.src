@@ -13,9 +13,7 @@
         {realms, [
             {rm_default, [
                 %% common section
-                {server_proc, fbi_server_default},
-                {sdb_proc, fbi_sdb_default},
-                {sdb_tab, fbi_sdb_flagmap_default},
+                {realm_short_name, default},
                 {sdb_conf_filename, "fbi-default.conf"},
 
                 %% special section
