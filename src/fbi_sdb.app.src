@@ -22,6 +22,7 @@
             {rm_default, [
                 {server_host, "localhost"},
                 {server_port, 1811},
+                {server_node, local},
                 {sdb_lru_size, 1000},
                 {raw_sdb_params, "--loop 100 --kreeval 50"}
             ]}

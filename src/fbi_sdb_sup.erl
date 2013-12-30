@@ -23,7 +23,7 @@ start_link() ->
 
 init([]) ->
     {ok, { {one_for_one, 5, 10}, lists:concat([
-            children_for_realm(Realm) || Realm <- fbi_scfg:enumerate()
+            children_for_realm(Realm) || Realm <- fbi_scfg:enumerate(), fbi_scfg:server_node(Realm) == node()
         ])
     } }.
 
