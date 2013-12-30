@@ -114,6 +114,6 @@ construct_counter_name(List) ->
     string:join([stats:safe_string(S) || E <- List, S <- [type_utils:to_list(E)], S =/= ""], ".").
 
 get_metrics_for_stats(Realm) ->
-    {ok, SpecialConfigs} = application:get_env(fbi_sdb, special),
-    RealmConfigs = proplists:get_value(Realm, SpecialConfigs, []),
-    proplists:get_value(metrics, RealmConfigs, []).
+    {ok, RealmsSpec} = application:get_env(fbi_sdb, realms),
+    RealmSpec = proplists:get_value(Realm, RealmsSpec, []),
+    proplists:get_value(metrics, RealmSpec, []).

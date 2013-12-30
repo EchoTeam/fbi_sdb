@@ -10,16 +10,15 @@
         fbi_common
     ]},
     {env, [
-        {common, [
+        {realms, [
             {rm_default, [
+                %% common section
                 {server_proc, fbi_server_default},
                 {sdb_proc, fbi_sdb_default},
                 {sdb_tab, fbi_sdb_flagmap_default},
-                {sdb_conf_filename, "fbi-default.conf"}
-            ]}
-        ]},
-        {special, [
-            {rm_default, [
+                {sdb_conf_filename, "fbi-default.conf"},
+
+                %% special section
                 {server_host, "localhost"},
                 {server_port, 1811},
                 {server_node, local},

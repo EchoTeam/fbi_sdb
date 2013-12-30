@@ -17,14 +17,10 @@ stop(_State) ->
     ok.
 
 load_config() ->
-    {ok, CommonSpec} = application:get_env(fbi_sdb, common),
-    {ok, SpecialSpec} = application:get_env(fbi_sdb, special),
+    {ok, RealmsSpec} = application:get_env(fbi_sdb, realms),
 
-    Realms = [R || {R, _} <- CommonSpec],
-    RealmsS = [R || {R, _} <- SpecialSpec],
-    true = lists:sort(Realms) == lists:sort(RealmsS),
-    RealmsSpec = [{R, lists:concat([proplists:get_value(R, S) || S <- [CommonSpec, SpecialSpec]])} || R <- Realms],
-
+    Realms = [R || {R, _} <- RealmsSpec],
+    
     Get = fun(Realm, Key) ->
         RS = proplists:get_value(Realm, RealmsSpec, []),
         proplists:get_value(Key, RS)
@@ -59,7 +55,4 @@ load_config() ->
             [["server_hostport(", IO(R), ") -> {", IO(Get(R, server_host)), ",", IO(Get(R, server_port)), "}", D] || {R, D} <- W(Realms)]
     ],
     mod_gen:go(ModSpec).
-
-
-
 
