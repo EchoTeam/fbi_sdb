@@ -11,21 +11,19 @@
     ]},
     {env, [
         {common, [
-            {rm_default, [
-                {server_proc, fbi_server_default},
-                {sdb_proc, fbi_sdb_default},
-                {sdb_tab, fbi_sdb_flagmap_default},
-                {sdb_conf_filename, "fbi-default.conf"}
+            {rm_views, [
+                {server_proc, fbi_server_views},
+                {sdb_proc, fbi_sdb_views},
+                {sdb_tab, fbi_sdb_flagmap_views},
+                {sdb_conf_filename, "fbi-views.conf"}
+            ]},
+            {rm_api, [
+                {server_proc, fbi_server_api},
+                {sdb_proc, fbi_sdb_api},
+                {sdb_tab, fbi_sdb_flagmap_api},
+                {sdb_conf_filename, "fbi-api.conf"}
             ]}
         ]},
-        {special, [
-            {rm_default, [
-                {server_host, "localhost"},
-                {server_port, 1811},
-                {sdb_lru_size, 1000},
-                {raw_sdb_params, "--loop 100 --kreeval 50"}
-            ]}
-        ]},
-        {conf_path, "/etc/fbi"}
+        {conf_path, "/echo/etc/current"}
     ]}
 ]}.
