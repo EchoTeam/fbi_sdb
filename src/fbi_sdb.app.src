@@ -21,7 +21,10 @@
                 {server_port, 1811},
                 {server_node, local},
                 {sdb_lru_size, 1000},
-                {raw_sdb_params, "--loop 100 --kreeval 50"}
+                {raw_sdb_params, "--loop 100 --kreeval 50"},
+                {metrics, [
+                    {"default_metric", "/?/?"}
+                ]}
             ]}
         ]},
         {conf_path, "/etc/fbi"}
