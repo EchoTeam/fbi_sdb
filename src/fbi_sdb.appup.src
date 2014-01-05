@@ -1,12 +1,8 @@
 {"0.0.2",
   [{"0.0.1",[
-     {load_module,fbi_sdb_app},
-     {load_module,fbi_sdb_stats},
-     {update,fbi_sdb_sup,supervisor}
+     {restart_application,fbi_sdb},
     ]}],
   [{"0.0.1",[
-     {load_module,fbi_sdb_app},
-     {load_module,fbi_sdb_stats},
-     {update,fbi_sdb_sup,supervisor}
+     {restart_application,fbi_sdb},
     ]}]
 }.
