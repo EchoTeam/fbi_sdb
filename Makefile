@@ -4,6 +4,8 @@ CAMLSRC=ocaml_src
 SDB=priv/fbi_sdb
 OCAML_DEPS:=deps/ocaml-jskitlib
 
+.PHONY: all compile clean install uninstall
+.PHONY: test-unit test-ct check
 .PHONY: ocaml clean-ocaml $(OCAML_DEPS) clean-ocaml-deps
 
 all: compile install
@@ -29,8 +31,13 @@ ocaml-clean:
 clean-ocaml:
 	cd $(CAMLSRC); $(MAKE) clean
 
-test: install
+test-unit: install
 	$(REBAR) eunit skip_deps=true
+
+test-ct:
+	$(REBAR) ct skip_deps=true
+
+check: test-unit test-ct
 
 clean-ocaml-deps:
 	for ocamld in $(OCAML_DEPS); do \
