@@ -2,7 +2,7 @@
 
 {application, fbi_sdb, [
     {description, "FBI server DB app"},
-    {vsn, "0.0.1"},
+    {vsn, "0.0.2"},
     {registered, []},
     {mod, {fbi_sdb_app, []}},
     {applications, [
