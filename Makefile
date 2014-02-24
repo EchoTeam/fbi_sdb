@@ -1,12 +1,17 @@
-REBAR= `which ./rebar || rebar`
+REBAR := $(shell which ./rebar || which rebar)
 
 CAMLSRC=ocaml_src
 SDB=priv/fbi_sdb
 OCAML_DEPS:=deps/ocaml-jskitlib
 
+.PHONY: all get-deps compile clean install uninstall
+.PHONY: test-unit test-ct check
 .PHONY: ocaml clean-ocaml $(OCAML_DEPS) clean-ocaml-deps
 
-all: compile install
+all: get-deps compile install
+
+get-deps:
+	$(REBAR) get-deps
 
 compile: $(OCAML_DEPS)
 	$(REBAR) compile
@@ -29,8 +34,13 @@ ocaml-clean:
 clean-ocaml:
 	cd $(CAMLSRC); $(MAKE) clean
 
-test: install
+test-unit: all 
 	$(REBAR) eunit skip_deps=true
+
+test-ct: all
+	$(REBAR) ct skip_deps=true
+
+check: test-unit test-ct
 
 clean-ocaml-deps:
 	for ocamld in $(OCAML_DEPS); do \
